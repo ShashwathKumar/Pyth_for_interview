@@ -14,7 +14,7 @@ class HashTable(object):
 		self.uTop = ptr     #unused Top
 
 		self.table.append(ptr)
-		for i in range(1,HTSize): #notice HTSize is as defined above
+		for i in xrange(1,HTSize): #notice HTSize is as defined above
 			ptr2 = HashEntry()
 			ptr.nextEntry = ptr2
 			self.table.append(ptr2)
