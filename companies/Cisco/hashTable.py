@@ -24,6 +24,7 @@ class HashTable(object):
 		ptr = self.uTop
 		for e in self.table:
 			print e.entry
+		self.check_sTop()
 
 	def getEntry(self, mac):
 		hashIndex = self.calcHash(mac)
@@ -31,23 +32,48 @@ class HashTable(object):
 
 	def putEntry(self, mac, port):
 		hashIndex = self.calcHash(mac)
+
+		newSlot = None
 		if not self.table[hashIndex].entry[0]:  #this refers to mac address
-			self.table[hashIndex] = HashEntry(mac, port)
+			self.table[hashIndex] = newSlot = HashEntry(mac, port)
 		else:
 			#handle collision
-			emptySlot = self.uTop
+			newSlot = self.uTop
 			self.uTop = self.uTop.nextEntry
-			emptySlot.entry[0]=mac
-			emptySlot.entry[1]=port
+			newSlot.entry[0]=mac
+			newSlot.entry[1]=port
 
 			ptr = self.table[hashIndex]
 			while ptr.entry[2]: #this refers to nextHashIndex
 				newIndex = ptr.entry[2]
 				ptr = self.table[newIndex]
-			ptr.entry[2] = self.table.index(emptySlot) #index of empty slot
+			ptr.entry[2] = self.table.index(newSlot) #index of empty slot
 
 			#update sTop
-			
+		if not self.sTop:
+			self.sTop = newSlot
+			self.sTop.nextEntry = None #This separates this entry from uTop
+		else:
+			ptr = self.sTop
+			while ptr.nextEntry:
+				print ptr.nextEntry.entry
+				ptr = ptr.nextEntry
+			ptr.nextEntry = newSlot
+			ptr.nextEntry.nextEntry = None
+
+	def check_sTop(self):
+		ptr = self.sTop
+		print "************************************"
+		while ptr:
+			print ptr.entry, self.table.index(ptr)
+			ptr = ptr.nextEntry
+		print "************************************"
+
+	def check_uTop(self):
+		ptr = self.uTop
+		while ptr:
+			print ptr.entry, self.table.index(ptr)
+			ptr = ptr.nextEntry
 
 	def calcHash(self, mac):
 		macList = mac.split(':')
