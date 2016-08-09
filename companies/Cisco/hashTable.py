@@ -23,6 +23,7 @@ class HashTable(object):
 			ptr = ptr2
 
 	def printHashTable(self):
+		print "hashTable:"
 		ptr = self.uTop
 		for e in self.table:
 			print e.entry
