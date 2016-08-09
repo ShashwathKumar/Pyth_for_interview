@@ -1,3 +1,5 @@
+import sys
+
 HTSize = 16
 
 class HashEntry(object):
@@ -56,7 +58,8 @@ class HashTable(object):
 			#update uTop
 			#if uTop is empty -- say sorry
 			if not self.uTop:
-				print 'Sorry..!! No space in hashTable'
+				#print 'Sorry..!! No space in hashTable'
+				raise OverflowError('HashTableFull')
 				return
 			newSlot = self.uTop
 			self.uTop = self.uTop.nextEntry
@@ -106,32 +109,35 @@ class HashTable(object):
 		self.__init__()
 
 def main():
-	ht = HashTable()
-	ht.printHashTable()
-	print "------------------------------------------------"
-	ht.putEntry('12:34:4C:31:1A:1B',6)
-	ht.printHashTable()
-	print "------------------------------------------------"
-	ht.putEntry('12:34:4C:31:1A:2B',7)
-	ht.putEntry('12:34:4C:31:1A:3C',8)
-	ht.printHashTable()
-	print "------------------------------------------------"
-	ht.putEntry('12:32:12:3C:2A:3C',9)
-	ht.printHashTable()
-	print "------------------------------------------------"
-	ht.putEntry('13:3C:1B:3A:21:2B',9)
-	ht.printHashTable()
-	print "------------------------------------------------"
-	ht.clear()
-	ht.printHashTable()
-	print "------------------------------------------------"
-
-	#populating hashTable completely
-	for i in xrange(16):
-		ht.putEntry('13:3C:1B:3A:21:2B',9)
-	ht.printHashTable()
-	print "------------------------------------------------"
-	ht.putEntry('12:32:12:3C:2A:3C',9)
+	try:
+	    ht = HashTable()
+	    ht.printHashTable()
+	    print "------------------------------------------------"
+	    ht.putEntry('12:34:4C:31:1A:1B',6)
+	    ht.printHashTable()
+	    print "------------------------------------------------"
+	    ht.putEntry('12:34:4C:31:1A:2B',7)
+	    ht.putEntry('12:34:4C:31:1A:3C',8)
+	    ht.printHashTable()
+	    print "------------------------------------------------"
+	    ht.putEntry('12:32:12:3C:2A:3C',9)
+	    ht.printHashTable()
+	    print "------------------------------------------------"
+	    ht.putEntry('13:3C:1B:3A:21:2B',9)
+	    ht.printHashTable()
+	    print "------------------------------------------------"
+	    ht.clear()
+	    ht.printHashTable()
+	    print "------------------------------------------------"
+	    #populating hashTable completely
+	    for i in xrange(16):
+	    	ht.putEntry('13:3C:1B:3A:21:2B',9)
+	    ht.printHashTable()
+	    print "------------------------------------------------"
+	    ht.putEntry('12:32:12:3C:2A:3C',9)
+	except OverflowError:
+		print 'Sorry, hashTable is full'
+		print 'Error on line {}'.format(sys.exc_info()[-1].tb_lineno)
 
 if __name__ == "__main__":
 	main()
