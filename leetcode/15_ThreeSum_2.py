@@ -12,7 +12,6 @@ A solution set is:
 """
 
 #this code seems to work but is very slow -- Time limit exceeded
-
 import collections
 
 class Solution(object):
