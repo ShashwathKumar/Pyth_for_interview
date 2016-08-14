@@ -11,7 +11,11 @@ A solution set is:
   [-2,  0, 0, 2]
 ]
 """
-
+"""
+This is an O(n^3) solution. But this can be improved by pruning off sums in early stages which can never reach the target sum
+that means they are too small or too big
+might have to keep track max 3 numbers and min 3 numbers for this
+"""
 class Solution(object):
     def fourSum(self, nums, target):
         """
@@ -20,28 +24,34 @@ class Solution(object):
         :rtype: List[List[int]]
         """
         s = sorted(nums)
-        sol = []
         length = len(nums)
+        sol = {}
+        q = []
         
         for m, num1 in enumerate(s[:-3]):
-            #for n, num2 in enumerate(s[m+1:]):
             n=length
-            while n>m+1:
+            while n-1>m:
                 n-=1
-                num2 = s[n]
-                i=m+1
-                j=n-1 #this is because n is starting its loop from 0
-                
+                num4 = s[n]
+                i = m+1
+                j = n-1
                 while i<j:
-                    num3 = s[i]
-                    num4 = s[j]
+                    num2, num3 = s[i], s[j]
                     q = [num1, num2, num3, num4]
-                    
-                    if sum(q)<target:
+                    print q, i, j, m, n
+                    if sum(q) < target:
                         i+=1
-                    elif sum(q)>target:
+                    elif sum(q) > target:
                         j-=1
                     else:
-                        i+=1  #I think j-=1 might also work
-                        sol.append(q)
-        return sol
+                        sol[str(q)] = q
+                        i+=1
+        return sol.values()
+
+def main():
+    o = Solution()
+    l = [-2, 0, 0, -1, 2, 1]
+    print o.fourSum(l, 0)
+
+if __name__ == "__main__":
+    main()

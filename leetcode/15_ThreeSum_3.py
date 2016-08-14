@@ -16,7 +16,7 @@ class Solution(object):
         """
         s = sorted(nums)
         length = len(nums)
-        sol={}
+        sol={}    #purpose of dictionary is not to repeat the entries
         print s
         for n, num1 in enumerate(s[:-2]):
             i = n+1
