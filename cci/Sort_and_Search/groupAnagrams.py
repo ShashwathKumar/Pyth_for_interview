@@ -1,3 +1,8 @@
+"""
+avoid popping -- its O(n) not O(1)
+Following code is not efficient
+"""
+
 def cntChars(st):
 	d = {}
 	for c in st:
