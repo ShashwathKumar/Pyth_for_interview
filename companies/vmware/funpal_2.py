@@ -15,7 +15,7 @@ def funpal(s):
 		if t[1]>2:
 			t[1]/=2
 			print t
-			evens2.append(t) #need to append copy(t)
+			evens2.append(list(t)) #this appends copy(t)
 	a = formpal(odds.pop(0), evens)
 	b = formpal(odds.pop(0), evens2)
 	return a,b, len(a)*len(b)
@@ -36,7 +36,7 @@ def formpal(oddTuple, evens):
 	return ''.join(xl)
 
 def main():
-	s = 'aabbbccxxffrrrrt'
+	s = 'aabbbccxxffrrrrtz'
 	print funpal(s)
 
 if __name__ == "__main__":
