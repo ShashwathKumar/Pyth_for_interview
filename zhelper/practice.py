@@ -28,7 +28,8 @@ class Graph(object):
         """The Nth name in names should correspond to node number N.
         Node numbers are 0 based (starting at 0).
         """
-        self.node_names = list(names)
+        names = list(names)
+        self.node_names[:len(names)] = names
 
     def insert_node(self, new_node_val):
         "Insert a new node with value new_node_val"
