@@ -4,7 +4,6 @@
 def solution(S):
     # write your code in Python 2.7
     l = S.split('\n')
-    print l
     levelSpaces = 0 #expected number of spaces at this level
     dirStack = []
     totalLen = 0
@@ -36,11 +35,8 @@ def solution(S):
     return totalLen
 
 def pathLen(s):
-    print s
     sNoSpace = map(lambda x: len(x.strip(' ')), s)
-    print sNoSpace
     sLen = reduce(lambda x,y: x+y, sNoSpace)
-    print sLen+len(sNoSpace)
     return sLen+len(sNoSpace)
 
 def countSpaces(s):
