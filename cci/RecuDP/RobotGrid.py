@@ -1,35 +1,53 @@
-from math import ceil
+from collections import namedtuple
 
-o = [(3,3), (4,3)]
+cnt=0
 
-def RobotGridRec(r, c, prevStep):
-	ratio = 0 #just initializing it
-	if (not r==0) and (not c==0):
-		ratio = float(r)/float(c)
+maze = []
+maze.append([1, 0, 1, 1, 0])
+maze.append([1, 1, 1, 1, 0])
+maze.append([1, 0, 1, 1, 0])
+maze.append([0, 1, 1, 0, 1])
+maze.append([1, 1, 1, 1, 1])
 
-	if r==0 and c==0:
-		print "Goal reached..!!"
-	elif c==0:
-		print 'move', r, 'steps down'
-	elif r==0:
-		print 'move', c, 'steps right'
-	elif prevStep == 'r':
-		steps = int(ceil(ratio))
-		print 'move '+ str(steps)+ ' steps down'
-		RobotGridRec(r-steps, c, 'd')
-	elif prevStep == 'd' or prevStep == None:
-		steps = int(ceil(1/ratio))
-		print 'move '+ str(steps)  + ' steps right'
-		RobotGridRec(r, c-steps, 'r')
+Cell = namedtuple('Cell', ['r', 'c'])
 
+def findPath(maze):
+	rLen = len(maze)
+	cLen = len(maze[0])
 
-def RobotGrid(r, c):
-	RobotGridRec(r, c, None)
+	destCell = Cell(rLen-1, cLen-1)
+	srcCell  = Cell(0,0)
+	path=[]
+
+	return findPathRec(maze, srcCell, destCell, path)
+
+def findPathRec(maze, srcCell, destCell, path):
+	global cnt
+	cnt+=1
+	r = destCell.r
+	c = destCell.c
+	if r <0 or c<0 or not maze[r][c]:
+		return False
+
+	if destCell == srcCell:
+		return True
+
+	if findPathRec(maze, srcCell, Cell(r-1, c), path) or findPathRec(maze, srcCell, Cell(r, c-1), path):
+		path.append(destCell)
+	else:
+		maze[r][c]=False
+
+	return path
 
 def main():
-	r = 5
-	c = 10
-	RobotGrid(5, 10)
+	path = findPath(maze)
+	for cell in path:
+		print cell
+	print
+	for l in maze:
+		print l
+	print
+	print cnt
 
 if __name__ == "__main__":
 	main()
