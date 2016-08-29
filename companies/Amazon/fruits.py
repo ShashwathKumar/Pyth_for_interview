@@ -6,7 +6,7 @@ fruits = 0
 
 maze = []
 maze.append([1, 0, 1, 0, 1])
-maze.append([1, 0, 1, 0, 1])
+maze.append([0, 0, 1, 0, 1])
 maze.append([1, 0, 1, 0, 0])
 maze.append([1, 0, 1, 0, 1])
 maze.append([1, 1, 1, 1, 1])
@@ -55,8 +55,13 @@ def findPathRec(maze, path, srcCell, destCell):
 	r = srcCell.r
 	c = srcCell.c
 
-	if maze[r][c]:
+	#just to count no. of fruits
+	#---------------------------------------------------
+	if path and maze[r][c]>maze[path[-1].r][path[-1].c]:
 		fruits+=1
+	elif not path and maze[r][c]==1:
+		fruits+=1
+	#---------------------------------------------------
 	path.append(srcCell)
 
 	if srcCell==destCell:
