@@ -9,6 +9,7 @@ def backEdges(G, start):
 			if node in curr.parents:
 				backEdges.append(curr.name+node.name)
 			elif not node.visited:
+				node.parents = set(list(curr.parents))
 				node.parents.add(curr)
 				node.visited=True
 				stack.append(node)
@@ -37,6 +38,11 @@ def getGraph():
 	G['e']=[b, f]
 	G['f']=[]
 	G['g']=[b, f]
+
+	# G['c']=[e, d, b]
+	# G['d']=[c, e]
+	# G['e']=[b, f, a]
+	# G['f']=[a]
 
 	return G, a
 
