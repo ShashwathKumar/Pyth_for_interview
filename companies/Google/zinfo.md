@@ -1,3 +1,3 @@
 ##backEdges:
 
-![](./imgs/backEdges.jpg = 200x100)
+![](./imgs/backEdges.jpg )
