@@ -21,7 +21,7 @@ def regex(s, p):
 
 def main():
     s = 'ccca' #'abcd'
-    p = 'c*a'  #'a.*c'
+    p = 'c.ca'  #'a.*c'
     print regex(s,p)
 
 if __name__ == "__main__":
